@@ -1,15 +1,16 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { getFilteredEvents } from "../../helpers/api-util";
+
 import EventList from "../../components/events/event-list";
 import ResultsTitle from "../../components/events/results-title";
 import Button from "../../components/ui/button";
 import ErrorAlert from "../../components/ui/error-alert";
 
-function FilteredEventsPage(props) {
-	const [events, setEvents] = useState([]);
+function FilteredEventsPage() {
+	const [loadedEvents, setLoadedEvents] = useState();
 	const router = useRouter();
+
 	const filterData = router.query.slug;
 
 	const { data, error } = useSWR(
@@ -27,24 +28,27 @@ function FilteredEventsPage(props) {
 				});
 			}
 
-			setEvents(events);
+			setLoadedEvents(events);
 		}
 	}, [data]);
 
-	if (!events) {
+	if (!loadedEvents) {
 		return <p className="center">Loading...</p>;
 	}
 
-	const filteredYear = +filterData[0];
-	const filteredMonth = +filterData[1];
+	const filteredYear = filterData[0];
+	const filteredMonth = filterData[1];
+
+	const numYear = +filteredYear;
+	const numMonth = +filteredMonth;
 
 	if (
-		isNaN(filteredYear) ||
-		isNaN(filteredMonth) ||
-		filteredYear > 2030 ||
-		filteredYear < 2021 ||
-		filteredMonth < 1 ||
-		filteredMonth > 12 ||
+		isNaN(numYear) ||
+		isNaN(numMonth) ||
+		numYear > 2030 ||
+		numYear < 2021 ||
+		numMonth < 1 ||
+		numMonth > 12 ||
 		error
 	) {
 		return (
@@ -59,9 +63,11 @@ function FilteredEventsPage(props) {
 		);
 	}
 
-	const filteredEvents = events.filter((event) => {
+	const filteredEvents = loadedEvents.filter((event) => {
 		const eventDate = new Date(event.date);
-		return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1;
+		return (
+			eventDate.getFullYear() === numYear && eventDate.getMonth() === numMonth - 1
+		);
 	});
 
 	if (!filteredEvents || filteredEvents.length === 0) {
@@ -77,7 +83,7 @@ function FilteredEventsPage(props) {
 		);
 	}
 
-	const date = new Date(filteredYear, filteredMonth - 1);
+	const date = new Date(numYear, numMonth - 1);
 
 	return (
 		<Fragment>
@@ -86,5 +92,4 @@ function FilteredEventsPage(props) {
 		</Fragment>
 	);
 }
-
 export default FilteredEventsPage;
