@@ -14,7 +14,6 @@ function HomePage({ events }) {
 					content="Find a lot of great events thtat allow you to evolve."
 				/>
 			</Head>
-			<MainHeader />
 			<EventList items={events} />
 		</div>
 	);
