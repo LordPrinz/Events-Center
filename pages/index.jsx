@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import { getFeaturedEvents } from "../helpers/api-util";
 import EventList from "../components/events/event-list";
 import MainHeader from "./../components/layout/main-header";
@@ -5,6 +7,13 @@ import MainHeader from "./../components/layout/main-header";
 function HomePage({ events }) {
 	return (
 		<div>
+			<Head>
+				<title>Next Events</title>
+				<meta
+					name="description"
+					content="Find a lot of great events thtat allow you to evolve."
+				/>
+			</Head>
 			<MainHeader />
 			<EventList items={events} />
 		</div>
