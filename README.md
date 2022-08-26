@@ -19,7 +19,7 @@ Small event list application with firebase database built with Next.js
 
 ## Overview
 
-This app was created while learing Next.js. It uses firebase as a database. It is my first Next.js App
+This app was created while learing Next.js. It uses firebase as a database. It is my first Next.js App. **SMALL PROBLEMS WITH IMAGES SRY**
 
 ### Built With
 
