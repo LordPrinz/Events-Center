@@ -15,11 +15,9 @@ function FilteredEventsPage() {
 	const filterData = router.query.slug;
 
 	const { data, error } = useSWR(
-		"https://nextevents-34a03-default-rtdb.firebaseio.com/events.json"
-	);
-
-	useEffect(() => {
-		if (data) {
+		"https://nextevents-34a03-default-rtdb.firebaseio.com/events.json",
+		async (url) => {
+			const data = await fetch(url).then((res) => res.json());
 			const events = [];
 
 			for (const key in data) {
@@ -29,8 +27,12 @@ function FilteredEventsPage() {
 				});
 			}
 
-			setLoadedEvents(events);
+			return events;
 		}
+	);
+
+	useEffect(() => {
+		setLoadedEvents(data);
 	}, [data]);
 
 	let pageHeadData = (
