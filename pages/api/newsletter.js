@@ -1,4 +1,4 @@
-export default handler = (req, res) => {
+export default function handler(req, res) {
     if (req.method === "POST") {
         const userEmail = req.body.email;
 
@@ -9,4 +9,4 @@ export default handler = (req, res) => {
 
         res.status(201).json({ message: "Signed up!" });
     }
-};
+}

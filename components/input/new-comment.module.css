@@ -38,5 +38,11 @@
 }
 
 .form button {
-    background-color: white;
+    background-color: white !important;
+    transition: 0.2s;
+}
+
+.form button:hover {
+    background-color: rgb(231, 231, 231) !important;
+    transition: 0.2s;
 }
