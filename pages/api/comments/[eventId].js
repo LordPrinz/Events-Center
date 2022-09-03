@@ -34,11 +34,15 @@ export default async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-        const dummyList = [
-            { _id: "c1", name: "Oskar", text: "A first comment!" },
-            { _id: "c2", name: "Paweł", text: "A second comment!" },
-        ];
-        res.status(200).json({ comments: dummyList });
+        const db = client.db();
+
+        const documents = await db
+            .collection("comments")
+            .find()
+            .sort({ _id: -1 })
+            .toArray();
+
+        res.status(200).json({ comments: documents });
     }
 
     client.close();
