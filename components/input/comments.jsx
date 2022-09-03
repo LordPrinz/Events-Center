@@ -18,6 +18,7 @@ function Comments(props) {
 					setComments(data.comments);
 				});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [showComments]);
 
 	function toggleCommentsHandler() {
