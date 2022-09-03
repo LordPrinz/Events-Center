@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./new-comment.module.css";
 
 function NewComment(props) {
@@ -7,6 +7,14 @@ function NewComment(props) {
 	const emailInputRef = useRef();
 	const nameInputRef = useRef();
 	const commentInputRef = useRef();
+
+	useEffect(() => {
+		if (props.isSuccess) {
+			emailInputRef.current.value = "";
+			nameInputRef.current.value = "";
+			commentInputRef.current.value = "";
+		}
+	}, [props.isSuccess]);
 
 	function sendCommentHandler(event) {
 		event.preventDefault();
