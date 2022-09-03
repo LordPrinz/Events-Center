@@ -42,7 +42,12 @@ export default async function handler(req, res) {
             .sort({ _id: -1 })
             .toArray();
 
-        res.status(200).json({ comments: documents });
+        const filteredComments = documents.filter(
+            (comment) => comment.eventId === eventId
+        );
+        res.status(200).json({
+            comments: filteredComments,
+        });
     }
 
     client.close();
