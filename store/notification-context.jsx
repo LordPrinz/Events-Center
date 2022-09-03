@@ -31,4 +31,4 @@ export function NotificationContextProvider(props) {
 	);
 }
 
-export default NotificationContextProvider;
+export default NotificationContext;
