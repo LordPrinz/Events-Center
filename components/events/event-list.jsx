@@ -11,7 +11,7 @@ function EventList(props) {
           key={event.id}
           id={event.id}
           title={event.title}
-          location={event.location}
+          location={`${window.location.href}${event.location}`}
           date={event.date}
           image={event.image}
         />
